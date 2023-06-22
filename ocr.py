@@ -6,7 +6,7 @@ import pyperclip
 
 def capture_image():
     # Open the default camera (you can change the index to use a different camera)
-    camera = cv2.VideoCapture(1)
+    camera = cv2.VideoCapture(0)
 
     # Check if the camera is opened successfully
     if not camera.isOpened():
