@@ -47,29 +47,26 @@ def extract_text(image):
 def main():
     st.title("Image Text Extraction")
 
-    num_images = st.number_input("Number of Images to Capture", min_value=1, value=1, step=1)
+    # Capture an image from the camera
+    if st.button("Capture Image"):
+        image = capture_image()
 
-    for _ in range(num_images):
-        # Capture an image from the camera
-        if st.button("Capture Image"):
-            image = capture_image()
+        if image is not None:
+            # Display the captured image
+            st.image(image, channels="BGR", caption="Captured Image")
 
-            if image is not None:
-                # Display the captured image
-                st.image(image, channels="BGR", caption="Captured Image")
+            # Extract text from the image
+            text = extract_text(image)
 
-                # Extract text from the image
-                text = extract_text(image)
+            # Display the extracted text
+            st.header("Extracted Text")
+            st.write(text)  # Display the extracted text
 
-                # Display the extracted text
-                st.header("Extracted Text")
-                st.write(text)  # Display the extracted text
-
-                # Copy the extracted text to the clipboard
-                pyperclip.copy(text)
-                st.success("Text copied to clipboard!")
-            else:
-                st.error("Failed to capture the image")
+            # Copy the extracted text to the clipboard
+            pyperclip.copy(text)
+            st.success("Text copied to clipboard!")
+        else:
+            st.error("Failed to capture the image")
 
 if __name__ == "__main__":
     main()
